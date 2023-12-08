@@ -19,11 +19,8 @@ namespace Biblioteca_Virtual.Models
         [Required]
         public string? Foto { get; set; }
 
-
-
-        [Required]
         [NotMapped]
         [Display(Name = "Cargar Foto")]
-        public IFormFile FotoFile { get; set; }
+        public IFormFile? FotoFile { get; set; }
     }
 }

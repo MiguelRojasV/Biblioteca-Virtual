@@ -1,15 +1,15 @@
 using Biblioteca_Virtual.Context;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add Connection String
-builder.Services.AddDbContext< MiContext >(options => {
-
-options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaConexion"));
+// Add Connection String 
+builder.Services.AddDbContext<MiContext>(options => { 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaConexion")); 
 });
 
 var app = builder.Build();
