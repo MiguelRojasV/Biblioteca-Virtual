@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Biblioteca_Virtual.Migrations
 {
-    [DbContext(typeof(MiContext))]
-    partial class MiContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -24,24 +24,42 @@ namespace Biblioteca_Virtual.Migrations
 
             modelBuilder.Entity("Biblioteca_Virtual.Models.Comentario", b =>
                 {
+                    b.Property<int>("IdComentario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComentario"));
+
+                    b.Property<int>("Codigo")
+                        .HasColumnType("int");
+
                     b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Descripcion");
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("IdComentario");
 
                     b.ToTable("Comentarios");
                 });
 
             modelBuilder.Entity("Biblioteca_Virtual.Models.Libro", b =>
                 {
-                    b.Property<string>("Autor")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Codigo")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Codigo"));
+
+                    b.Property<string>("Autor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -59,7 +77,7 @@ namespace Biblioteca_Virtual.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Autor");
+                    b.HasKey("Codigo");
 
                     b.ToTable("Libros");
                 });

@@ -7,9 +7,9 @@ namespace Biblioteca_Virtual.Models
     public class Libro
     {
         [Key]
-        public string? Autor { get; set; }
-        [Required]
         public int Codigo { get; set; }
+        [Required]
+        public string? Autor { get; set; }
         [Required]
         public string? Descripcion { get; set; }
         [Required]

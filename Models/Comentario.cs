@@ -5,6 +5,12 @@ namespace Biblioteca_Virtual.Models
     public class Comentario
     {
         [Key]
+        public int IdComentario { get; set; }
+        [Required]
+        public int Codigo { get; set; }
+        [Required]
+        public string Nombre { get; set; }
+        [Required]
         public string? Descripcion { get; set; }
         [Required]
         public DateTime Fecha { get; set; }

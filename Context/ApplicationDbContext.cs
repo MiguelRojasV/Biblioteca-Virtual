@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca_Virtual.Context
 {
-    public class MiContext:DbContext
+    public class ApplicationDbContext:DbContext
     {
-        public MiContext(DbContextOptions options): base(options) 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) 
         {
             
         }

@@ -1,0 +1,38 @@
+﻿@using Biblioteca_Virtual.Models.ViewModels
+@model LibroDetalleViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.libro.Titulo</h1>
+<p>---la portada va aqui---</p>
+<div class="detalles">
+    <h3>Detalles</h3>
+    <p>Autor: @Model.libro.Autor</p>
+    <p>Editorial: @Model.libro.Editorial</p>
+</div>
+
+<div class="descripcion">
+    <h3>Descripcion</h3>
+    <p>@Model.libro.Descripcion</p>
+</div>
+<div class="comentarios">
+    <h2>Comentarios</h2>
+    @if (Model.comentarios.Any())
+    {
+        @foreach (var comentario in Model.comentarios)
+        {
+            <div class="comment">
+                <div class="comment-box">
+                    <p><strong>Fecha: @comentario.Fecha.ToString("MMMM dd, yyyy")</strong></p>
+                    <p><strong>Nombre: @comentario.Nombre</strong></p>
+                    <p>@comentario.Descripcion</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No hay comentarios disponibles.</p>
+    }
+</div>

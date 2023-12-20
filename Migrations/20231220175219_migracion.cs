@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Biblioteca_Virtual.Migrations
 {
     /// <inheritdoc />
-    public partial class FirsthMigration : Migration
+    public partial class migracion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,20 +15,25 @@ namespace Biblioteca_Virtual.Migrations
                 name: "Comentarios",
                 columns: table => new
                 {
-                    Descripcion = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdComentario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comentarios", x => x.Descripcion);
+                    table.PrimaryKey("PK_Comentarios", x => x.IdComentario);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Libros",
                 columns: table => new
                 {
-                    Autor = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    Codigo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Autor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Editorial = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -36,7 +41,7 @@ namespace Biblioteca_Virtual.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Libros", x => x.Autor);
+                    table.PrimaryKey("PK_Libros", x => x.Codigo);
                 });
 
             migrationBuilder.CreateTable(

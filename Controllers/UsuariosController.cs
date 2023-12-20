@@ -12,9 +12,9 @@ namespace Biblioteca_Virtual.Controllers
 {
     public class UsuariosController : Controller
     {
-        private readonly MiContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public UsuariosController(MiContext context)
+        public UsuariosController(ApplicationDbContext context)
         {
             _context = context;
         }
