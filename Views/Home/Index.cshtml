@@ -1,12 +1,4 @@
-﻿@* @{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Bienvenido</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div> *@
-@model IEnumerable<Libro>
+﻿@model IEnumerable<Libro>
 @{
     ViewData["Title"] = "Index";
 }
@@ -38,8 +30,8 @@
         @foreach(var obj in Model)
         {
             <tr>
-                <td width="40%">
-                    @obj.Foto
+                <td width="40%">                    
+                    <img src="@Url.Content(obj.Foto)" width="70" height="100" />
                 </td>
                 <td width="30%">
                     @obj.Titulo
