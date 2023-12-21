@@ -1,0 +1,31 @@
+﻿@* 
+@{
+    ViewData["Title"] = "CrearComentario";
+}
+
+<h1>CrearComentario</h1>
+ *@
+ @model Comentario
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Publicar Comentario</h2>
+            <hr />
+        </div>
+        @*< div asp-validation-summary="All"></div> *@
+        <div class="mb-3">
+            <label asp-for="Nombre"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Descripcion"></label>
+            <input asp-for="Descripcion" class="form-control" />
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width=150px">PUBLICAR</button>
+        <a asp-controller="Libro" asp-action="Ver" asp-route-Codigo="@Model.Codigo" class="btn btn-secondary" style="width=150px">
+            VOLVER AL LIBRO
+        </a>
+    </div>
+</form>

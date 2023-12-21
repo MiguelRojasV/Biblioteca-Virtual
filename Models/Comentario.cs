@@ -13,7 +13,18 @@ namespace Biblioteca_Virtual.Models
         [Required]
         public string? Descripcion { get; set; }
         [Required]
-        public DateTime Fecha { get; set; }
-        
+        public DateTime Fecha { get; set; } = DateTime.Now;
+
+
+        /*
+         * Agregado por el Inge, causa error
+         * //foreing keys
+        public int LibroId { get; set; }
+        public Libro? Libro { get; set; }
+
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
+        */
+
     }
 }

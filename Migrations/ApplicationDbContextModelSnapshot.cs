@@ -46,7 +46,7 @@ namespace Biblioteca_Virtual.Migrations
 
                     b.HasKey("IdComentario");
 
-                    b.ToTable("Comentarios");
+                    b.ToTable("Comentarios", (string)null);
                 });
 
             modelBuilder.Entity("Biblioteca_Virtual.Models.Libro", b =>
@@ -79,7 +79,7 @@ namespace Biblioteca_Virtual.Migrations
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("Libros");
+                    b.ToTable("Libros", (string)null);
                 });
 
             modelBuilder.Entity("Biblioteca_Virtual.Models.Usuario", b =>
@@ -107,7 +107,7 @@ namespace Biblioteca_Virtual.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios");
+                    b.ToTable("Usuarios", (string)null);
                 });
 #pragma warning restore 612, 618
         }

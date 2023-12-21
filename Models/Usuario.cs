@@ -7,7 +7,6 @@ namespace Biblioteca_Virtual.Models
     {
         [Key]
         public int  Id { get; set; }
-
         [Required]
         public string? Email { get; set; }
         [Required]
@@ -16,5 +15,12 @@ namespace Biblioteca_Virtual.Models
         public string? Nombre_Completo { get; set; }
         [Required]
         public RolEnum Rol { get; set; }
+
+        /*
+         * agregado por el inge, causa error
+        public virtual List<Comentario>? Comentarios { get; set; }
+        public virtual List<Libro>? Libros { get; set; }
+        */
+
     }
 }

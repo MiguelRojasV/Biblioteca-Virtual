@@ -33,5 +33,25 @@ namespace Biblioteca_Virtual.Controllers
             };
             return View(viewModel);
         }
+
+        //GET
+        public IActionResult CrearComentario(int? Codigo)
+        {
+            Comentario obj = new Comentario();
+            obj.Codigo = Convert.ToInt32(Codigo);
+            return View(obj);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CrearComentario(Comentario obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Comentarios.Add(obj);
+                _context.SaveChanges();
+                return RedirectToAction("Ver", new { Codigo = obj.Codigo });
+            }      
+            return View(obj);
+        }
     }
 }

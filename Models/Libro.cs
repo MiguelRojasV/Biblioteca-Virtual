@@ -21,5 +21,12 @@ namespace Biblioteca_Virtual.Models
         [NotMapped]
         [Display(Name = "Cargar Foto")]
         public IFormFile? FotoFile { get; set; }
+
+        /*
+         * agregado por el inge causa, error
+        public int UsuarioId { get; set; }
+        public Usuario? Usuario { get; set; }
+        public virtual List<Comentario> Comentarios { get; set; }
+        */
     }
 }

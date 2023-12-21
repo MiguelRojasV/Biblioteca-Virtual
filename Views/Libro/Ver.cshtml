@@ -18,6 +18,11 @@
 </div>
 <div class="comentarios">
     <h2>Comentarios</h2>
+    <div class="col-6 text-end">
+        <a asp-controller="Libro" asp-action="CrearComentario" asp-route-Codigo="@Model.libro.Codigo" class="btn btn-primary">
+            PUBLICAR COMENTARIO
+        </a>
+    </div>
     @if (Model.comentarios.Any())
     {
         @foreach (var comentario in Model.comentarios)
