@@ -17,7 +17,6 @@ namespace Biblioteca_Virtual.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Login(string correo, string contrasena) 
         {
             var usuario = await _miContext.Usuarios

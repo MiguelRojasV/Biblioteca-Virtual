@@ -53,5 +53,24 @@ namespace Biblioteca_Virtual.Controllers
             }      
             return View(obj);
         }
+        //GET
+        public IActionResult CrearLibro()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CrearLibro(Libro obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Libros.Add(obj);
+                _context.SaveChanges();
+                return RedirectToAction("Ver", new { Codigo = obj.Codigo });
+            }
+            return View(obj);
+        }
+
+
     }
 }
