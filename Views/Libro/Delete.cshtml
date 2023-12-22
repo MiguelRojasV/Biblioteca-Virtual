@@ -1,0 +1,32 @@
+﻿@model Libro
+<form method="post" asp-action="Delete">
+    <input asp-for="Codigo" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">BORRAR LIBRO</h2>
+            <hr />
+        </div>
+        @*< div asp-validation-summary="All"></div> *@
+        <div class="mb-3">
+            <label asp-for="Titulo"></label>
+            <input asp-for="Titulo" disabled class="form-control" />          
+        </div>
+        <div class="mb-3">
+            <label asp-for="Autor"></label>
+            <input asp-for="Autor" disabled class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Descripcion"></label>
+            <input asp-for="Descripcion" disabled class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-danger" style="width:150px">Borrar</button>
+        <a asp-controller="Usuarios" asp-action="Index" asp-route-Id="@Model.IdUsuario" class="btn btn-secondary" style="width:150px">
+            Volver
+        </a>
+    </div>
+</form>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

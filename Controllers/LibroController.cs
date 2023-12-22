@@ -128,6 +128,34 @@ namespace Biblioteca_Virtual.Controllers
             // Redirigir a la acción de compartir
             return RedirectToAction("Compartir", new { url = libroUrl });
         }
+        //GET
+        public IActionResult Delete(int? Codigo)
+        {
+            if (Codigo == null || Codigo == 0)
+            {
+                return NotFound();
+            }
+            var objlibro = _context.Libros.Find(Codigo);
+            if (objlibro == null)
+            {
+                return NotFound();
+            }
+            return View(objlibro);
+        }
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? Codigo)
+        {
+            var obj = _context.Libros.Find(Codigo);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _context.Libros.Remove(obj);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Usuarios", new { Id = obj.IdUsuario });
+        }
 
     }
 }
