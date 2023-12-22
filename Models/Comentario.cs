@@ -14,6 +14,8 @@ namespace Biblioteca_Virtual.Models
         public string? Descripcion { get; set; }
         [Required]
         public DateTime Fecha { get; set; } = DateTime.Now;
+        [Required]
+        public int IdUsuario { get; set; }
 
 
         /*

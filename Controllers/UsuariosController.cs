@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Biblioteca_Virtual.Context;
 using Biblioteca_Virtual.Models;
+using Biblioteca_Virtual.Models.ViewModels;
 
 namespace Biblioteca_Virtual.Controllers
 {
@@ -26,12 +27,20 @@ namespace Biblioteca_Virtual.Controllers
             {
                 return NotFound();
             }
-            var usuario = _context.Usuarios.Find(Id);
-            if (usuario == null)
+            var objusuario = _context.Usuarios.Find(Id);
+            if (objusuario == null)
             {
                 return NotFound();
             }
-            return View(usuario);
+            IEnumerable<Libro> objLibroLista = _context.Libros
+            .Where(l => l.IdUsuario == Id)
+            .ToList();
+            var viewModel = new UsuarioLibroViewModel
+            {
+                usuario = objusuario,
+                libros = objLibroLista.ToList()
+            };
+            return View(viewModel);
         }
         //GET
         public IActionResult Edit(int? Id)
