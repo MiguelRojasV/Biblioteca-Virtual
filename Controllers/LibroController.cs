@@ -11,6 +11,7 @@ namespace Biblioteca_Virtual.Controllers
     public class LibroController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private const string DirectorioDestino = "wwwroot/rutaInterna";
         public LibroController(ApplicationDbContext context)
         {
             _context = context;
@@ -77,17 +78,43 @@ namespace Biblioteca_Virtual.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CrearLibro(Libro obj)
+        public IActionResult CrearLibro(Libro obj, IFormFile archivoPDF)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && archivoPDF != null)
             {
+                string directorioDestino = "RutaInterna"; // Reemplaza con la ruta deseada
+
+                if (!Directory.Exists(directorioDestino))
+                {
+                    Directory.CreateDirectory(directorioDestino);
+                }
+
+                // Validar que el archivo sea PDF
+                if (Path.GetExtension(archivoPDF.FileName).ToLowerInvariant() != ".pdf")
+                {
+                    ModelState.AddModelError("ArchivoPDF", "El archivo debe ser de tipo PDF.");
+                    return View(obj);
+                }
+
+                // Guardar el archivo en el almacenamiento interno
+                var fileName = $"{Guid.NewGuid()}.pdf";
+                var filePath = Path.Combine(directorioDestino, fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    archivoPDF.CopyTo(stream);
+                }
+
+                // Guardar la información del libro en la base de datos
+                obj.RutaArchivoPDF = fileName; // Guardamos solo el nombre del archivo en la base de datos
                 _context.Libros.Add(obj);
                 _context.SaveChanges();
+
                 return RedirectToAction("Ver", new { Codigo = obj.Codigo });
             }
+
             return View(obj);
         }
-
 
     }
 }

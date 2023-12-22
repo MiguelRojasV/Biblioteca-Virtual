@@ -1,36 +1,50 @@
 ﻿@model Libro
-<form method="post">
+
+<form method="post" enctype="multipart/form-data">
     <div class="border p-3 mt-4">
         <div class="row pb-2">
-            <h2 class="text-primary">SUBIR LIBRO</h2>
+            <h2 class="text-primary">Subir Libro</h2>
             <hr />
         </div>
-        @*< div asp-validation-summary="All"></div> *@
+
         <div class="mb-3">
-            <label asp-for="Autor"></label>
+            <label asp-for="Autor" class="form-label">Autor</label>
             <input asp-for="Autor" class="form-control" />
             <span asp-validation-for="Autor" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
-            <label asp-for="Descripcion"></label>
+            <label asp-for="Descripcion" class="form-label">Descripción</label>
             <input asp-for="Descripcion" class="form-control" />
             <span asp-validation-for="Descripcion" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
-            <label asp-for="Editorial"></label>
+            <label asp-for="Editorial" class="form-label">Editorial</label>
             <input asp-for="Editorial" class="form-control" />
             <span asp-validation-for="Editorial" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
-            <label asp-for="Titulo"></label>
+            <label asp-for="Titulo" class="form-label">Título</label>
             <input asp-for="Titulo" class="form-control" />
             <span asp-validation-for="Titulo" class="text-danger"></span>
         </div>
+
         <div class="mb-3">
-            <label asp-for="Foto">Foto (Ingresa una URL de imagen)</label>
+            <label asp-for="Foto" class="form-label">Foto (Ingrese una URL de imagen)</label>
             <input asp-for="Foto" class="form-control" />
             <span asp-validation-for="Foto" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Subir</button>
+
+        <div class="mb-3">
+            <label asp-for="ArchivoPDF" class="form-label">Archivo PDF</label>
+            <input type="file" name="ArchivoPDF" class="form-control" />
+            <span asp-validation-for="ArchivoPDF" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Subir</button>
+        </div>
     </div>
 </form>
