@@ -2,6 +2,9 @@
 using Biblioteca_Virtual.Models;
 using Biblioteca_Virtual.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using QRCoder;
+using System.Drawing.Imaging;
+using System.Drawing;
 
 namespace Biblioteca_Virtual.Controllers
 {
@@ -31,6 +34,20 @@ namespace Biblioteca_Virtual.Controllers
                 libro = libroDelaBase,
                 comentarios = objComentarioLista.ToList()
             };
+            //Creando el QR y enviandolo a la vista
+            var location = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}");
+            var url = location.AbsoluteUri;
+            QRCodeGenerator qRcodeGenerator = new QRCodeGenerator();
+            QRCodeData qRCodeData = qRcodeGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+            QRCode qrCode = new QRCode(qRCodeData);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (Bitmap bitmap = qrCode.GetGraphic(20))
+                {
+                    bitmap.Save(ms, ImageFormat.Png);
+                    ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+                }
+            }
             return View(viewModel);
         }
 
