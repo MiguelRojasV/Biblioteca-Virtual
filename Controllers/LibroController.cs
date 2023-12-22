@@ -12,6 +12,9 @@ namespace Biblioteca_Virtual.Controllers
     {
         private readonly ApplicationDbContext _context;
         private const string DirectorioDestino = "wwwroot/rutaInterna";
+
+        public string fileName { get; private set; }
+
         public LibroController(ApplicationDbContext context)
         {
             _context = context;
@@ -114,6 +117,16 @@ namespace Biblioteca_Virtual.Controllers
             }
 
             return View(obj);
+
+            obj.RutaArchivoPDF = fileName;
+            _context.Libros.Add(obj);
+            _context.SaveChanges();
+
+            // Construir la URL del libro recién creado
+            var libroUrl = Url.Action("Ver", "Libro", new { Codigo = obj.Codigo }, Request.Scheme);
+
+            // Redirigir a la acción de compartir
+            return RedirectToAction("Compartir", new { url = libroUrl });
         }
 
     }

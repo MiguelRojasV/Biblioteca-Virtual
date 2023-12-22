@@ -4,44 +4,152 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>@Model.libro.Titulo</h1>
-<img src="@Url.Content(Model.libro.Foto)" width="200" height="300" />
-@if (ViewBag.QRCodeImage != null)
-{
-    <img src="@ViewBag.QRCodeImage" style="height:200px; width:200px" />
-}
-<div class="detalles">
-    <h3>Detalles</h3>
-    <p>Autor: @Model.libro.Autor</p>
-    <p>Editorial: @Model.libro.Editorial</p>
-</div>
+<div class="container">
+    <div class="book-info">
+        <h1>@Model.libro.Titulo</h1>
+        <img src="@Url.Content(Model.libro.Foto)" alt="@Model.libro.Titulo" />
 
-<div class="descripcion">
-    <h3>Descripcion</h3>
-    <p>@Model.libro.Descripcion</p>
-</div>
-<div class="comentarios">
-    <h2>Comentarios</h2>
-    <div class="col-6 text-end">
-        <a asp-controller="Libro" asp-action="CrearComentario" asp-route-Codigo="@Model.libro.Codigo" class="btn btn-primary">
-            PUBLICAR COMENTARIO
-        </a>
-    </div>
-    @if (Model.comentarios.Any())
-    {
-        @foreach (var comentario in Model.comentarios)
+        @if (ViewBag.QRCodeImage != null)
         {
-            <div class="comment">
-                <div class="comment-box">
-                    <p><strong>Fecha: @comentario.Fecha.ToString("MMMM dd, yyyy")</strong></p>
-                    <p><strong>Nombre: @comentario.Nombre</strong></p>
-                    <p>@comentario.Descripcion</p>
-                </div>
+            <div class="qr-code">
+                <img src="@ViewBag.QRCodeImage" style="height: 150px; width: 150px;" />
             </div>
         }
-    }
-    else
-    {
-        <p>No hay comentarios disponibles.</p>
-    }
+
+        <div class="details">
+            <h3>Detalles</h3>
+            <p>Autor: @Model.libro.Autor</p>
+            <p>Editorial: @Model.libro.Editorial</p>
+        </div>
+
+        <div class="description">
+            <h3>Descripción</h3>
+            <p>@Model.libro.Descripcion</p>
+        </div>
+    </div>
+
+    <div class="comments">
+        <h2>Comentarios</h2>
+        <div class="text-end">
+            <a asp-controller="Libro" asp-action="CrearComentario" asp-route-Codigo="@Model.libro.Codigo" class="btn btn-primary">
+                Publicar Comentario
+            </a>
+        </div>
+
+        @if (Model.comentarios.Any())
+        {
+            @foreach (var comentario in Model.comentarios)
+            {
+                <div class="comment">
+                    <div class="comment-box">
+                        <p><strong>Fecha: @comentario.Fecha.ToString("MMMM dd, yyyy")</strong></p>
+                        <p><strong>Nombre: @comentario.Nombre</strong></p>
+                        <p>@comentario.Descripcion</p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No hay comentarios disponibles.</p>
+        }
+    </div>
+
+    <div class="share-links">
+        <h2>Compartir </h2>
+        <div>
+            <a href="whatsapp://send?text=@Url.Action("Ver", "Libro", new { Codigo = Model.libro.Codigo }, Context.Request.Scheme)" target="_blank" class="btn btn-social whatsapp">
+                Compartir en WhatsApp
+            </a>
+        </div>
+
+        <div>
+            <a href="https://www.facebook.com/sharer/sharer.php?u=@Url.Action("Ver", "Libro", new { Codigo = Model.libro.Codigo }, Context.Request.Scheme)" target="_blank" class="btn btn-social facebook">
+                Compartir en Facebook
+            </a>
+        </div>
+
+        <div>
+            <a href="https://www.instagram.com/?url=@Url.Action("Ver", "Libro", new { Codigo = Model.libro.Codigo }, Context.Request.Scheme)" target="_blank" class="btn btn-social instagram">
+                Compartir en Instagram
+            </a>
+        </div>
+    </div>
 </div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .book-info {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .book-info img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+    .qr-code {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .details,
+    .description {
+        margin-top: 20px;
+        margin-left: 20px; /* Alinea a la izquierda */
+    }
+
+    .comments {
+        margin-top: 30px;
+        margin-left: 20px; /* Alinea a la izquierda */
+    }
+
+    .comment {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .comment-box {
+        color: #333;
+    }
+
+    .share-links {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Alinea a la izquierda */
+    }
+
+    .btn-social {
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+        width: 200px; /* Ajusta el ancho de los botones según sea necesario */
+    }
+
+    .whatsapp {
+        background-color: #25d366;
+    }
+
+    .facebook {
+        background-color: #1877f2;
+    }
+
+    .instagram {
+        background-color: #e4405f;
+    }
+</style>
