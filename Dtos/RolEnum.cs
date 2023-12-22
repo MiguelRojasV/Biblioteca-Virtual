@@ -5,7 +5,5 @@
         Moderador=1,
         Publicador=2,
         Visitante
-
-
     }
 }
