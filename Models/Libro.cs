@@ -21,6 +21,14 @@ namespace Biblioteca_Virtual.Models
         [NotMapped]
         [Display(Name = "Cargar Foto")]
         public IFormFile? FotoFile { get; set; }
+        public string? Archivo { get; set; }
+        [NotMapped]
+        [Display(Name = "Archivo PDF")]
+        [Required(ErrorMessage = "Por favor, seleccione un archivo.")]
+        [DataType(DataType.Upload)]
+        [AllowedExtensions(new string[] { ".pdf" }, ErrorMessage = "El archivo debe ser un PDF.")]
+        public IFormFile? ArchivoPDF { get; set; }
+        public string? RutaArchivoPDF { get; internal set; }
 
         /*
          * agregado por el inge causa, error
