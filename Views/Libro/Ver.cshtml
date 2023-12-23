@@ -7,19 +7,19 @@
 <div class="container">
     <div class="book-info">
         <h1>@Model.libro.Titulo</h1>
-        <img src="@Url.Content(Model.libro.Foto)" alt="@Model.libro.Titulo"/>
+        <img src="@Url.Content(Model.libro.Foto)" alt="@Model.libro.Titulo" />
 
         @if (ViewBag.QRCodeImage != null)
         {
             <div class="qr-code">
-                <img src="@ViewBag.QRCodeImage" style="height: 150px; width: 150px;" />
+                <img src="@ViewBag.QRCodeImage" class="qr-image" />
             </div>
         }
 
         <div class="details">
             <h3>Detalles</h3>
-            <p>Autor: @Model.libro.Autor</p>
-            <p>Editorial: @Model.libro.Editorial</p>
+            <p><strong>Autor:</strong> @Model.libro.Autor</p>
+            <p><strong>Editorial:</strong> @Model.libro.Editorial</p>
         </div>
 
         <div class="description">
@@ -42,8 +42,8 @@
             {
                 <div class="comment">
                     <div class="comment-box">
-                        <p><strong>Fecha: @comentario.Fecha.ToString("MMMM dd, yyyy")</strong></p>
-                        <p><strong>Nombre: @comentario.Nombre</strong></p>
+                        <p><strong>Fecha:</strong> @comentario.Fecha.ToString("MMMM dd, yyyy")</p>
+                        <p><strong>Nombre:</strong> @comentario.Nombre</p>
                         <p>@comentario.Descripcion</p>
                     </div>
                 </div>
@@ -56,22 +56,28 @@
     </div>
 
     <div class="share-links">
-        <h2>Compartir </h2>
-        <div>
+        <h2>Compartir y Descargar</h2>
+        <div class="share-item">
             <a href="whatsapp://send?text=@Url.Action("Ver", "Libro", new { Codigo = Model.libro.Codigo }, Context.Request.Scheme)" target="_blank" class="btn btn-social whatsapp">
                 Compartir en WhatsApp
             </a>
         </div>
 
-        <div>
+        <div class="share-item">
             <a href="https://www.facebook.com/sharer/sharer.php?u=@Url.Action("Ver", "Libro", new { Codigo = Model.libro.Codigo }, Context.Request.Scheme)" target="_blank" class="btn btn-social facebook">
                 Compartir en Facebook
             </a>
         </div>
 
-        <div>
+        <div class="share-item">
             <a href="https://www.instagram.com/?url=@Url.Action("Ver", "Libro", new { Codigo = Model.libro.Codigo }, Context.Request.Scheme)" target="_blank" class="btn btn-social instagram">
                 Compartir en Instagram
+            </a>
+        </div>
+
+        <div class="share-item">
+            <a asp-action="Descargar" asp-route-Codigo="@Model.libro.Codigo" class="btn btn-download" download="@Model.libro.RutaArchivoPDF">
+                Descargar PDF
             </a>
         </div>
     </div>
@@ -100,15 +106,20 @@
         margin-top: 20px;
     }
 
+    .qr-image {
+        height: 150px;
+        width: 150px;
+    }
+
     .details,
     .description {
         margin-top: 20px;
-        margin-left: 20px; /* Alinea a la izquierda */
+        margin-left: 20px;
     }
 
     .comments {
         margin-top: 30px;
-        margin-left: 20px; /* Alinea a la izquierda */
+        margin-left: 20px;
     }
 
     .comment {
@@ -126,19 +137,25 @@
         margin-top: 30px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start; /* Alinea a la izquierda */
+        align-items: flex-start;
     }
 
-    .btn-social {
+    .share-item {
+        margin: 10px 0;
+    }
+
+    .btn-social, .btn-download {
         border: none;
         border-radius: 5px;
         text-decoration: none;
         padding: 10px;
-        margin: 10px 0;
         text-align: center;
-        color: #fff;
         cursor: pointer;
-        width: 200px; /* Ajusta el ancho de los botones según sea necesario */
+        width: 200px;
+    }
+
+    .btn-social {
+        color: #fff;
     }
 
     .whatsapp {
@@ -151,5 +168,10 @@
 
     .instagram {
         background-color: #e4405f;
+    }
+
+    .btn-download {
+        color: #fff;
+        background-color: #007bff; /* Azul de Bootstrap, puedes cambiarlo */
     }
 </style>

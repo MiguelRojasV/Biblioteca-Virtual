@@ -85,8 +85,7 @@ namespace Biblioteca_Virtual.Controllers
         {
             if (ModelState.IsValid && archivoPDF != null)
             {
-                string directorioDestino = "RutaInterna"; // Reemplaza con la ruta deseada
-
+                string directorioDestino = Path.Combine(Directory.GetCurrentDirectory(), DirectorioDestino);
                 if (!Directory.Exists(directorioDestino))
                 {
                     Directory.CreateDirectory(directorioDestino);
@@ -118,15 +117,15 @@ namespace Biblioteca_Virtual.Controllers
 
             return View(obj);
 
-            obj.RutaArchivoPDF = fileName;
-            _context.Libros.Add(obj);
-            _context.SaveChanges();
+            //obj.RutaArchivoPDF = fileName;
+            //_context.Libros.Add(obj);
+           // _context.SaveChanges();
 
             // Construir la URL del libro recién creado
-            var libroUrl = Url.Action("Ver", "Libro", new { Codigo = obj.Codigo }, Request.Scheme);
+            //var libroUrl = Url.Action("Ver", "Libro", new { Codigo = obj.Codigo }, Request.Scheme);
 
             // Redirigir a la acción de compartir
-            return RedirectToAction("Compartir", new { url = libroUrl });
+          //  return RedirectToAction("Compartir", new { url = libroUrl });
         }
         //GET
         public IActionResult Delete(int? Codigo)
@@ -156,6 +155,32 @@ namespace Biblioteca_Virtual.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Usuarios", new { Id = obj.IdUsuario });
         }
+        public IActionResult Descargar(int? Codigo)
+        {
+            if (Codigo == null || Codigo == 0)
+            {
+                return NotFound();
+            }
 
+            var libro = _context.Libros.Find(Codigo);
+
+            if (libro == null)
+            {
+                return NotFound();
+            }
+
+            // Ruta completa del archivo en wwwroot
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), DirectorioDestino, libro.RutaArchivoPDF);
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var fileName = $"{libro.Titulo}.pdf";
+
+            return File(fileBytes, "application/pdf", fileName);
+        }
     }
 }
