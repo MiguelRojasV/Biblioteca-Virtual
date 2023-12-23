@@ -43,6 +43,25 @@ namespace Biblioteca_Virtual.Controllers
             return View(viewModel);
         }
         //GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Usuario obj)
+        {
+            obj.Rol = Dtos.RolEnum.Publicador;
+            if (ModelState.IsValid)
+            {
+                _context.Usuarios.Add(obj);
+                _context.SaveChanges();                
+                return RedirectToAction("Index", new { Id = obj.Id });
+            }
+            return View(obj);
+        }
+        //GET
         public IActionResult Edit(int? Id)
         {
             if (Id == null || Id == 0)
